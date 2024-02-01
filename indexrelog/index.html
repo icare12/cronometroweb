@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tiempo de página</title>
+  <style>
+    body {
+      background-image: url(imagen/chicho2.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: sans-serif;
+      color: #ffffff;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .timer-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .timer {
+      width: 300px;
+      height: 100px;
+      background-color: #2ecc71; /* Color verde esmeralda (puedes cambiarlo) */
+      color: #ffffff;
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 100px;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-30px);
+      }
+      60% {
+        transform: translateY(-15px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timer-container">
+    <div class="timer" id="timer">Empieza el conteo</div>
+  </div>
+
+  <script>
+    let timerContainer = document.getElementById('timer');
+    let start = Date.now();
+
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        startTimer();
+      }, 1000);
+    });
+
+    function startTimer() {
+      timerContainer.style.animation = 'none'; // Elimina la animación de rebote
+      setTimeout(function() {
+        timerContainer.style.animation = 'fadeIn 0.5s ease-out forwards'; // Vuelve a aplicar la animación de aparición
+      }, 10);
+
+      setInterval(function() {
+        let now = Date.now();
+        let elapsed = now - start;
+        let minutes = Math.floor(elapsed / 60000);
+        let seconds = Math.floor((elapsed % 60000) / 1000);
+
+        // Ajusta el formato de los números para que sean más atractivos
+        minutes = padZero(minutes, 2);
+        seconds = padZero(seconds, 2);
+
+        timerContainer.textContent = `${minutes}:${seconds}`;
+      }, 1000);
+    }
+
+    function padZero(number, length) {
+      return String(number).padStart(length, '0');
+    }
+  </script>
+</body>
+</html>
+
+
+
+
